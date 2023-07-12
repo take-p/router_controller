@@ -1,7 +1,9 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 import os
 import sys
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.service import Service
 
 ip = os.getenv("ROUTER_IP_ADDRESS")
 username = os.getenv("ROUTER_USERNAME")
@@ -10,7 +12,11 @@ password = os.getenv("ROUTER_PASSWORD")
 # ユーザー名とパスワードをURLに埋め込む
 auth_url = f"http://{username}:{password}@{ip}"
 
-driver = webdriver.Firefox()
+driver="geckodriver"
+service = Service(executable_path=driver)
+options = Options()
+options.headless = True
+driver = webdriver.Firefox(service=service, options=options)
 driver.get(auth_url + "/cgi-bin/luci/content/net_filtering/url_filter?nocache")
 
 # 認証後の動作を追加する
@@ -34,6 +40,8 @@ if len(sys.argv) > 1:
         checkbox.click()
         driver.execute_script("goToApply()") # 設定を反映
         print("フィルタリングをoffにしました")
+    else:
+        print("ルーター設定の変更はありません")
 
 # ドライバーを終了する
 driver.quit()
