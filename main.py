@@ -2,8 +2,8 @@ import os
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-#from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.chrome.options import Options
+#from selenium.webdriver.firefox.options import Options # TODO 削除予定
 
 ip = os.getenv("ROUTER_IP_ADDRESS")
 username = os.getenv("ROUTER_USERNAME")
@@ -15,7 +15,7 @@ auth_url = f"http://{username}:{password}@{ip}"
 options = Options()
 options.headless = True
 driver = webdriver.Chrome(options=options)
-#driver = webdriver.Firefox(options=options)
+#driver = webdriver.Firefox(options=options) # TODO 削除予定
 driver.get(auth_url + "/cgi-bin/luci/content/net_filtering/url_filter?nocache")
 
 # 認証後の動作を追加する
