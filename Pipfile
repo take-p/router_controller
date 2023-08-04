@@ -8,6 +8,7 @@ requests = "*"
 beautifulsoup4 = "*"
 pyexecjs = "*"
 selenium = "*"
+schedule = "*"
 
 [dev-packages]
 
